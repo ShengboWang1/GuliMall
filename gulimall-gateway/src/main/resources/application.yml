@@ -1,6 +1,9 @@
 spring:
   cloud:
     gateway:
+      discovery:
+        locator:
+          enabled: false
       routes:
         - id: baidu_route
           uri: https://www.baidu.com
@@ -12,3 +15,22 @@ spring:
           predicates:
             - Query=url, qq
 
+        - id: product_route
+          uri: lb://gulimall-product
+          predicates:
+            - Path=/api/product/**
+          filters:
+            - RewritePath=/api/(?<segment>/?.*),/$\{segment}
+
+        - id: admin_route
+          uri: http://localhost:8080
+          predicates:
+            - Path=/api/**
+          filters:
+            - RewritePath=/api/(?<segment>/?.*),/renren-fast/$\{segment}
+
+
+
+##只要是前端项目，都用api前缀
+##需要将路径重写：从 http://localhost:88/api/captcha.jpg 转到 http://localhost:8080/renren-fast/captcha.jpg
+##product http://localhost:88/api/product/category/list/tree 转到 http://localhost:10000/renren-fast/product/category/list/tree
