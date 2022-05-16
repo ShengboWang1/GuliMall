@@ -4,6 +4,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
  * 1、整合MyBatis-Plus
@@ -41,18 +42,20 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  *      1）、编写一个自定义的校验注解
  *      2）、编写一个自定义的校验器 ConstraintValidator
  *      3）、关联自定义的校验器和自定义的校验注解
- *      #@Documented
- * #@Constraint(validatedBy = { ListValueConstraintValidator.class【可以指定多个不同的校验器，适配不同类型的校验】 })
- * #@Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
- * #@Retention(RUNTIME)
+ *      @Documented
+ * @Constraint(validatedBy = { ListValueConstraintValidator.class【可以指定多个不同的校验器，适配不同类型的校验】 })
+ * @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
+ * @Retention(RUNTIME)
  * public @interface ListValue {
  *
  * 4、统一的异常处理
- * #@ControllerAdvice
+ * @ControllerAdvice
  *  1）、编写异常处理类，使用@ControllerAdvice。
  *  2）、使用@ExceptionHandler标注方法可以处理的异常。
  */
 
+@EnableFeignClients(basePackages = "com.shengbo.gulimall.product.feign")
+@MapperScan("com.shengbo.gulimall.product.dao")
 @EnableDiscoveryClient
 @SpringBootApplication
 public class GulimallProductApplication {

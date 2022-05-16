@@ -1,6 +1,7 @@
 package com.shengbo.gulimall.coupon.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.shengbo.common.to.SkuReductionTo;
 import com.shengbo.common.utils.PageUtils;
 import com.shengbo.gulimall.coupon.entity.SeckillSkuRelationEntity;
 

@@ -4,12 +4,11 @@ import java.util.Arrays;
 import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
+import com.shengbo.common.to.SkuReductionTo;
+import com.shengbo.gulimall.coupon.entity.SkuLadderEntity;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.shengbo.gulimall.coupon.entity.SkuFullReductionEntity;
 import com.shengbo.gulimall.coupon.service.SkuFullReductionService;
@@ -30,6 +29,13 @@ import com.shengbo.common.utils.R;
 public class SkuFullReductionController {
     @Autowired
     private SkuFullReductionService skuFullReductionService;
+
+    @PostMapping("/saveinfo")
+    //@RequiresPermissions("coupon:seckillskurelation:list")
+    public R saveInfo(@RequestBody SkuReductionTo skuReductionTo){
+        skuFullReductionService.saveSkuReduction(skuReductionTo);
+        return R.ok();
+    }
 
     /**
      * 列表
@@ -59,8 +65,8 @@ public class SkuFullReductionController {
      */
     @RequestMapping("/save")
     //@RequiresPermissions("coupon:skufullreduction:save")
-    public R save(@RequestBody SkuFullReductionEntity skuFullReduction){
-		skuFullReductionService.save(skuFullReduction);
+    public R save(@RequestBody SkuFullReductionEntity reductionEntity){
+		skuFullReductionService.save(reductionEntity);
 
         return R.ok();
     }

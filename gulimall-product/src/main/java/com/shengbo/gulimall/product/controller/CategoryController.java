@@ -51,7 +51,7 @@ public class CategoryController {
     public R info(@PathVariable("catId") Long catId){
 		CategoryEntity category = categoryService.getById(catId);
 
-        return R.ok().put("category", category);
+        return R.ok().put("data", category);
     }
 
     /**
@@ -64,15 +64,23 @@ public class CategoryController {
 
         return R.ok();
     }
+    /**
+     * 批量修改
+     */
+    @RequestMapping("/update/sort")
+    //@RequiresPermissions("product:category:update")
+    public R updateSort(@RequestBody CategoryEntity[] category){
+        categoryService.updateBatchById(Arrays.asList(category));
 
+        return R.ok();
+    }
     /**
      * 修改
      */
     @RequestMapping("/update")
     //@RequiresPermissions("product:category:update")
     public R update(@RequestBody CategoryEntity category){
-		categoryService.updateById(category);
-
+		categoryService.updateCascade(category);
         return R.ok();
     }
 
@@ -82,8 +90,11 @@ public class CategoryController {
     @RequestMapping("/delete")
     //@RequiresPermissions("product:category:delete")
     public R delete(@RequestBody Long[] catIds){
-		categoryService.removeByIds(Arrays.asList(catIds));
 
+        //1.检查当前删除的菜单是否被别的地方引用
+		categoryService.removeByIds(Arrays.asList(catIds));
+        //2.
+        categoryService.removeMenusByIds(Arrays.asList(catIds));
         return R.ok();
     }
 
