@@ -3,6 +3,7 @@ package com.shengbo.gulimall.product;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
@@ -52,12 +53,34 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @ControllerAdvice
  *  1）、编写异常处理类，使用@ControllerAdvice。
  *  2）、使用@ExceptionHandler标注方法可以处理的异常。
+ *
+ *
+ *
+ *  8.整合SpringCache
+ *  1。引入依赖spring-boot-starter-cache 和 sprint-boot-starter-redis
+ *  2. 写配置
+ *  2.1 CacheAutoConfiguration 会导入 RedisCacheConfiguration
+ *      RedisCacheConfiguration 自动配置好了缓存管理器 RedisCacheManager
+ *      RedisCacheManager初始化所有缓存 缓存自己配置了就添加自己的配置 没配置就用默认配置
+ *      想改缓存配置就在容器中放一个 自己的RedisCacheConfiguration
+ *      自己的RedisCacheConfiguration就会应用到当前RedisCacheManager管理的所有缓存分区中
+ *  2.2 配置使用redis作为缓存
+ *  2.3 使用@EnableCaching开启缓存功能
+ *  2.4 @Cacheable({"category"}) 代表当前方法的结果需要缓存 必须指定缓存的名字
+ *      缓存的分区推荐按照业务类型分
+ *      如果缓存中有方法则无需调用 缓存中无则调用方法 将方法的结果放入缓存
+ *
+ *
+ *
  */
 
+
+@EnableCaching
 @EnableFeignClients(basePackages = "com.shengbo.gulimall.product.feign")
 @MapperScan("com.shengbo.gulimall.product.dao")
 @EnableDiscoveryClient
 @SpringBootApplication
+
 public class GulimallProductApplication {
 
     public static void main(String[] args) {

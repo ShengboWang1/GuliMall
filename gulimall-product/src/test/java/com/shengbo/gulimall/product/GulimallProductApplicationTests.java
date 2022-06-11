@@ -7,6 +7,7 @@ import com.shengbo.gulimall.product.service.BrandService;
 import com.shengbo.gulimall.product.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -16,22 +17,41 @@ import java.io.InputStream;
 import javax.swing.text.html.parser.Entity;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
+
 import org.junit.runner.RunWith;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest
 class GulimallProductApplicationTests {
-
+    @Autowired
+    RedissonClient redissonClient;
     @Autowired
     BrandService brandService;
 
     @Autowired
     CategoryService categoryService;
     // 创建OSSClient实例。
-//    @Autowired
-//    OSSClient ossClient;
+    //    @Autowired
+    //    OSSClient ossClient;
+    @Autowired
+    StringRedisTemplate stringRedisTemplate;
+
+    @Test
+    public void teststringRedisTemplate(){
+        //key:hello value:world
+        ValueOperations<String, String> ops = stringRedisTemplate.opsForValue();
+        ops.set("hello", "world_" + UUID.randomUUID().toString());
+    }
+
+    @Test
+    public void redisson(){
+        System.out.println(redissonClient);
+    }
 
     @Test
     public void testFindPath(){

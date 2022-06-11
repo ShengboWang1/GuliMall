@@ -15,7 +15,12 @@
     <update id="addStock">
         update gulimall_wms.wms_ware_sku set stock=stock+#{skuNum} where sku_id=#{skuId} and ware_id=#{wareId}
     </update>
+    <select id="getStock">
 
+    </select>
+    <select id="getSkuStock" resultType="java.lang.Long">
+        select sum(stock-stock_locked) from gulimall_wms.wms_ware_sku where sku_id=#{skuId}
+    </select>
 
 
 </mapper>

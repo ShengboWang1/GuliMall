@@ -4,6 +4,7 @@ spring:
     password: 123456
     url: jdbc:mysql://10.211.55.6:3306/gulimall_pms
     driver-class-name: com.mysql.cj.jdbc.Driver
+
   cloud:
     nacos:
       discovery:
@@ -12,6 +13,13 @@ spring:
     name: gulimall-product
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+  redis:
+    host: 10.211.55.6
+    port: 6379
 
 mybatis-plus:
   mapper-locations: classpath:/mapper/**/*.xml
@@ -27,4 +35,4 @@ server:
 
 logging:
   level:
-    com.shengbo.gulimall: debug
+    com.shengbo.gulimall: error

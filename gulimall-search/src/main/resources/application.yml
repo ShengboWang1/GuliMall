@@ -1,0 +1,16 @@
+spring:
+  elasticsearch:
+    uris: 10.211.55.6:9200
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  application:
+    name: gulimall-search
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+  thymeleaf:
+    cache: false
+
+server:
+  port: 12000

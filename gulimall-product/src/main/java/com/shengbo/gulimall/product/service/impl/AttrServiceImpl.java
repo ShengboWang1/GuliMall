@@ -85,6 +85,16 @@ public class AttrServiceImpl extends ServiceImpl<AttrDao, AttrEntity> implements
     }
 
     @Override
+    public List<Long> selectSearchAttrs(List<Long> attrIds) {
+
+        // select attr_id from pms_attr where attr_id in (?) and search_type=1
+        if (attrIds != null && attrIds.size() != 0){
+            return baseMapper.selectAttrIds(attrIds);
+        }
+        return null;
+    }
+
+    @Override
     public PageUtils queryPage(Map<String, Object> params) {
         IPage<AttrEntity> page = this.page(
                 new Query<AttrEntity>().getPage(params),
