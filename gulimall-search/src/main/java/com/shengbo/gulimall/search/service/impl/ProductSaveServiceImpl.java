@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.shengbo.gulimall.search.constant.EsConstant.PRODUCT_INDEX;
+
 @Service
 @Slf4j
 public class ProductSaveServiceImpl implements ProductSaveService {
@@ -34,7 +36,7 @@ public class ProductSaveServiceImpl implements ProductSaveService {
             String s = JSONObject.toJSONString(skuEsModel);
             br.operations(op -> op
                     .index(idx -> idx
-                            .index("product")
+                            .index(PRODUCT_INDEX)
                             .id(skuEsModel.getSkuId().toString())
                             .document(skuEsModel)
                     )

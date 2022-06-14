@@ -2,10 +2,14 @@ package com.shengbo.gulimall.product;
 
 import com.aliyun.oss.*;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.shengbo.gulimall.product.dao.AttrGroupDao;
+import com.shengbo.gulimall.product.dao.SkuSaleAttrValueDao;
 import com.shengbo.gulimall.product.entity.BrandEntity;
 import com.shengbo.gulimall.product.service.BrandService;
 import com.shengbo.gulimall.product.service.CategoryService;
+import com.shengbo.gulimall.product.vo.SkuItemVo;
 import lombok.extern.slf4j.Slf4j;
+import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.Test;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +39,19 @@ class GulimallProductApplicationTests {
 
     @Autowired
     CategoryService categoryService;
+
+    @Autowired
+    AttrGroupDao attrGroupDao;
+
+    @Autowired
+    SkuSaleAttrValueDao skuSaleAttrValueDao;
+    @Test
+    public void test(){
+        List<SkuItemVo.SpuItemAttrGroupVo> attrGroupWithAttrsBySpuId = attrGroupDao.getAttrGroupWithAttrsBySpuId(19L, 225L);
+        System.out.println(attrGroupWithAttrsBySpuId);
+        List<SkuItemVo.SkuItemSaleAttrVo> saleAttrsBySpuId = skuSaleAttrValueDao.getSaleAttrsBySpuId(20L);
+        System.out.println(saleAttrsBySpuId);
+    }
     // 创建OSSClient实例。
     //    @Autowired
     //    OSSClient ossClient;

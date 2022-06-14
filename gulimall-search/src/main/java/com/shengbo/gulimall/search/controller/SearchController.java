@@ -8,11 +8,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+
 @Controller
 public class SearchController {
     @Autowired
     MallSearchService mallSearchService;
-
 
     /**
      * SpringMVC自动将页面提交过来的所有查询参数封装成指定的对象
