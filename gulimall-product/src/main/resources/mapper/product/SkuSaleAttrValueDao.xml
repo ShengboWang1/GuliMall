@@ -31,5 +31,10 @@
         where info.spu_id=#{spuId}
         group by attr_id, attr_name, attr_values;
     </select>
+    <select id="getSkuSaleAttrValues" resultType="java.lang.String">
+        select CONCAT(attr_name, ":", attr_value)
+        from gulimall_pms.pms_sku_sale_attr_value
+        where sku_id=#{skuId}
+    </select>
 
 </mapper>

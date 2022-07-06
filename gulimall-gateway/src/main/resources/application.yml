@@ -57,6 +57,15 @@ spring:
           predicates:
             - Host=search.gulimall.com
 
+        - id: gulimall_auth_route
+          uri: lb://gulimall-auth-server
+          predicates:
+            - Host=auth.gulimall.com
+
+        - id: gulimall_cart_route
+          uri: lb://gulimall-cart
+          predicates:
+            - Host=cart.gulimall.com
 
 ##只要是前端项目，都用api前缀
 ##需要将路径重写：从 http://localhost:88/api/captcha.jpg 转到 http://localhost:8080/renren-fast/captcha.jpg
