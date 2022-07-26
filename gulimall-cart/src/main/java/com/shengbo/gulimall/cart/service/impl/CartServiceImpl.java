@@ -17,6 +17,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -191,5 +192,29 @@ public class CartServiceImpl implements CartService {
     public void deleteItem(Long skuId) {
         BoundHashOperations<String, Object, Object> cartOps = getCartOps();
         cartOps.delete(skuId.toString());
+    }
+
+    @Override
+    public List<CartItem> getCurrentUserCartItems() {
+        UserInfoTo userInfoTo = CartIntercepter.threadLocal.get();
+        if(userInfoTo == null){
+            return null;
+        }else{
+            String cartKey = CART_PREFIX + userInfoTo.getUserId();
+            List<CartItem> cartItems = this.getCartItems(cartKey);
+            //获取所有被选中的购物项
+            if(cartItems != null){
+                return cartItems.stream().filter(CartItem::getCheck).map(cartItem -> {
+                    //更新一下最新的价格
+                    R r = productFeignService.getPrice(cartItem.getSkuId());
+                    String data = (String) r.get("data");
+                    cartItem.setPrice(new BigDecimal(data));
+                    return cartItem;
+                }).collect(Collectors.toList());
+            }
+            return null;
+
+        }
+
     }
 }

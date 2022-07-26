@@ -1,15 +1,12 @@
 package com.shengbo.gulimall.product.app;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Map;
 
 //import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.shengbo.gulimall.product.entity.SkuInfoEntity;
 import com.shengbo.gulimall.product.service.SkuInfoService;
@@ -30,6 +27,11 @@ import com.shengbo.common.utils.R;
 public class SkuInfoController {
     @Autowired
     private SkuInfoService skuInfoService;
+
+    @GetMapping("/{skuId}/price/")
+    public R getPrice(@PathVariable("skuId") Long skuId){
+        return R.ok().setData(skuInfoService.getById(skuId).getPrice().toString());
+    }
 
     /**
      * 列表
