@@ -22,6 +22,7 @@
         <module>renren-generator</module>
         <module>gulimall-common</module>
         <module>gulimall-auth-server</module>
+        <module>gulimall-seckill</module>
     </modules>
 
 </project>

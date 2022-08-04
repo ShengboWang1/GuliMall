@@ -27,7 +27,7 @@ public class AlipayTemplate {
     // 支付宝会悄悄的给我们发送一个请求，告诉我们支付成功的信息
 
     //TODO 注意！！！！！ 在nginx里面也要改这个地址！！！！！
-    public String notify_url = "http://kt3i9e.natappfree.cc/payed/notify";
+    public String notify_url = "http://erwzcf.natappfree.cc/payed/notify";
 
     // 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
     //同步通知，支付成功，一般跳转到成功页

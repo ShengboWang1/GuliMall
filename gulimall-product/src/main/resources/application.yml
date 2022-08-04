@@ -37,4 +37,4 @@ server:
 
 logging:
   level:
-    com.shengbo.gulimall: error
+    com.shengbo.gulimall: info

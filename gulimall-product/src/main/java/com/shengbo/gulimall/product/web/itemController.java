@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.concurrent.ExecutionException;
 
 @Controller
-public class itemController {
+public class  itemController {
     @Autowired
     SkuInfoService skuInfoService;
 

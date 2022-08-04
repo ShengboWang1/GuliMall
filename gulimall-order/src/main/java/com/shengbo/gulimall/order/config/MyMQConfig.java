@@ -16,10 +16,11 @@ public class MyMQConfig {
 
     /**
      * 容器中的binding queue exchange都会自动创建
+     *
      * @return
      */
     @Bean
-    public Queue orderDelayQueue(){
+    public Queue orderDelayQueue() {
         //String name, boolean durable, boolean exclusive, boolean autoDelete, @Nullable Map<String, Object> arguments
         Map<String, Object> arguments = new HashMap<>();
         //死信队列的设置
@@ -29,19 +30,22 @@ public class MyMQConfig {
         Queue queue = new Queue("order.delay.queue", true, false, false, arguments);
         return queue;
     }
+
     @Bean
-    public Queue orderReleaseOrderQueue(){
+    public Queue orderReleaseOrderQueue() {
         Queue queue = new Queue("order.release.order.queue", true, false, false);
         return queue;
     }
+
     @Bean
-    public Exchange orderEventExchange(){
+    public Exchange orderEventExchange() {
         //String name, boolean durable, boolean autoDelete, Map<String, Object> arguments
         TopicExchange topicExchange = new TopicExchange("order-event-exchange", true, false);
         return topicExchange;
     }
+
     @Bean
-    public Binding orderCreateBinding(){
+    public Binding orderCreateBinding() {
         //String destination, Binding.DestinationType destinationType, String exchange, String routingKey, @Nullable Map<String, Object> arguments
         Binding binding = new Binding("order.delay.queue",
                 Binding.DestinationType.QUEUE,
@@ -49,8 +53,9 @@ public class MyMQConfig {
                 "order.create.order", null);
         return binding;
     }
+
     @Bean
-    public Binding orderReleaseBinding(){
+    public Binding orderReleaseBinding() {
         Binding binding = new Binding("order.release.order.queue",
                 Binding.DestinationType.QUEUE,
                 "order-event-exchange",
@@ -60,14 +65,28 @@ public class MyMQConfig {
 
     /**
      * 订单释放和库存解锁进行绑定
+     *
      * @return
      */
     @Bean
-    public Binding orderReleaseOtherBinding(){
+    public Binding orderReleaseOtherBinding() {
         Binding binding = new Binding("stock.release.stock.queue",
                 Binding.DestinationType.QUEUE,
                 "order-event-exchange",
                 "order.release.other.#", null);
         return binding;
+    }
+
+    @Bean
+    public Queue orderSeckillOrderQueue() {
+        return new Queue("order.seckill.order.queue", true, false, false);
+    }
+
+    @Bean
+    public Binding orderSeckillOrderQueueBinding() {
+        return new Binding("order.seckill.order.queue",
+                Binding.DestinationType.QUEUE,
+                "order-event-exchange",
+                "order.seckill.order", null);
     }
 }
