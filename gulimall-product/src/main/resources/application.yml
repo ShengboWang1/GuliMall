@@ -14,7 +14,7 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
   thymeleaf:
-    cache: false
+    cache: true
     prefix: classpath:/templates/
     suffix: .html
   redis:
@@ -37,4 +37,4 @@ server:
 
 logging:
   level:
-    com.shengbo.gulimall: info
+    com.shengbo.gulimall: error

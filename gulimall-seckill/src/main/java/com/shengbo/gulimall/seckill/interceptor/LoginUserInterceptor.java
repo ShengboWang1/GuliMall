@@ -22,6 +22,7 @@ public class LoginUserInterceptor implements HandlerInterceptor {
         boolean match = antPathMatcher.match("/kill", requestURI);
 
         if(match){
+
             MemberResponseVo attribute = (MemberResponseVo) request.getSession().getAttribute(AuthServerConstant.LOGIN_USER);
             if(attribute!=null){
                 loginUser.set(attribute);

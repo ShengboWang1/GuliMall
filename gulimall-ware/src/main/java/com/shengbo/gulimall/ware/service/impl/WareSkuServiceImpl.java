@@ -59,9 +59,9 @@ public class WareSkuServiceImpl extends ServiceImpl<WareSkuDao, WareSkuEntity> i
     @Autowired
     OrderFeignService orderFeignService;
 
-
+    //库存解锁
     private void unlockStock(Long skuId, Long wareId, Integer num, Long taskDetailId) {
-        //库存解锁
+
         wareSkuDao.unlockStock(skuId, wareId, num);
         //更新库存工作单的状态
         WareOrderTaskDetailEntity wareOrderTaskDetailEntity = new WareOrderTaskDetailEntity();

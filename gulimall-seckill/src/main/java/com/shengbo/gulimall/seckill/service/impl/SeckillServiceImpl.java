@@ -171,6 +171,7 @@ public class SeckillServiceImpl implements SeckillService {
                     if (num <= redisTo.getSeckillLimit().intValue()) {
                         //2.4 验证这个人是否已经购买过 幂等性 只要秒杀成功 就去占位 userId_SessionId_skuId
                         //SETNX
+                        //String redisKey =  1 + "_" + id;
                         String redisKey = respVo.getId() + "_" + id;
                         //自动过期 过期时间为活动结束时间-当前时间
                         long ttl = endTime - time;
@@ -187,7 +188,7 @@ public class SeckillServiceImpl implements SeckillService {
                                 orderTo.setSeckillPrice(redisTo.getSeckillPrice());
                                 orderTo.setNum(num);
                                 orderTo.setSkuId(redisTo.getSkuId());
-                                orderTo.setMemberId(respVo.getId());
+                                //orderTo.setMemberId(respVo.getId());
                                 orderTo.setPromotionSessionId(redisTo.getPromotionSessionId());
                                 rabbitTemplate.convertAndSend("order-event-exchange", "order.seckill.order", orderTo);
                                 long s2 = System.currentTimeMillis();

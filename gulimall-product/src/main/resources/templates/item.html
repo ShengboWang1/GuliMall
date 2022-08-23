@@ -1332,7 +1332,8 @@
             var num = $("#productNum").val();
             location.href = "http://seckill.gulimall.com/kill?killId=" + killId + "&key=" + code + "&num=" + num;
         } else {
-            alert("秒杀请先登录");
+            //alert("秒杀请先登录");
+            location.href = "http://seckill.gulimall.com/kill?killId=" + "1_14" + "&key=" + "5b3568ca5bb741fe9b4c52f06bb9058d" + "&num=" + 1;
         }
         return false;
     });
